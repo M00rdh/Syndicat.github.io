@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Syndicat des Quatre Souffles — Madera V4</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=IM+Fell+English:ital@0;1&display=swap');
+
+  :root {
+    --ink: #1a1410;
+    --ink-faded: #4a3f35;
+    --ink-ghost: #8a7a6a;
+    --paper: #f5f0e8;
+    --paper-warm: #ede5d0;
+    --paper-aged: #d4c9a8;
+    --red-seal: #8b1a1a;
+    --red-light: #c5342a;
+    --gold: #b8860b;
+    --gold-light: #d4a843;
+    --gold-pale: #f0e0a0;
+    --jade: #2d6a4f;
+    --jade-light: #52b788;
+    --clan-feu: #c0392b;
+    --clan-grue: #1a5276;
+    --clan-serpent: #1e6b3a;
+    --clan-pierre: #6e4c1e;
+    --border-thin: 1px solid rgba(26,20,16,0.15);
+    --border-med: 1px solid rgba(26,20,16,0.3);
+    --shadow-soft: 0 2px 20px rgba(26,20,16,0.08);
+    --shadow-card: 0 4px 30px rgba(26,20,16,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    min-height: 100vh;
+    background-image: 
+      radial-gradient(ellipse at 20% 0%, rgba(180,150,80,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(139,26,26,0.04) 0%, transparent 60%);
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3rem 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 41px);
+    pointer-events: none;
+  }
+  .header-kanji {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: rgba(255,255,255,0.06);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+  .header-seal {
+    display: inline-block;
+    width: 60px; height: 60px;
+    border: 2px solid var(--red-seal);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--red-seal);
+    margin: 0 auto 1.5rem;
+    position: relative;
+    z-index: 1;
+    transform: rotate(-8deg);
+  }
+  .header-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0.5rem;
+  }
+  .header-sub {
+    font-size: 0.8rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0.5rem;
+  }
+  .header-madera-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    border: 1px solid var(--gold);
+    padding: 3px 12px;
+    margin-top: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* NAV */
+  .nav {
+    background: var(--paper-warm);
+    border-bottom: var(--border-med);
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-btn {
+    padding: 1rem 1.2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--ink-faded);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav-btn:hover { color: var(--ink); }
+  .nav-btn.active { color: var(--red-seal); border-bottom-color: var(--red-seal); }
+
+  /* CONTENT PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* CONTAINER */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  /* SECTION HEADERS */
+  .section-kicker {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red-seal);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+  .section-kanji {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    color: var(--ink-ghost);
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+  }
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--red-seal);
+    margin: 1.5rem 0;
+  }
+
+  /* LORE BODY TEXT */
+  .lore-p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--ink-faded);
+    margin-bottom: 1.2rem;
+    max-width: 72ch;
+  }
+  .lore-p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .lore-quote {
+    border-left: 2px solid var(--gold);
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    font-family: 'IM Fell English', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-faded);
+    background: rgba(184,134,11,0.04);
+  }
+
+  /* HIERARCHY CHART */
+  .hierarchy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 2rem 0;
+  }
+  .hier-node {
+    border: var(--border-med);
+    background: var(--paper-warm);
+    padding: 1rem 2rem;
+    text-align: center;
+    position: relative;
+    min-width: 220px;
+  }
+  .hier-node.oni {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--red-seal);
+    border-width: 2px;
+    min-width: 280px;
+  }
+  .hier-node.oni .node-title { color: var(--gold-light); }
+  .hier-node.conseil {
+    background: var(--paper-warm);
+    border-color: var(--gold);
+    min-width: 260px;
+  }
+  .hier-node.conseil .node-title { color: var(--gold); }
+  .hier-node .node-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-ghost);
+    margin-bottom: 0.25rem;
+  }
+  .hier-node.oni .node-label { color: rgba(255,255,255,0.4); }
+  .hier-node .node-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  .hier-node .node-sub {
+    font-size: 0.72rem;
+    color: var(--ink-ghost);
+    margin-top: 0.2rem;
+  }
+  .hier-node.oni .node-sub { color: rgba(255,255,255,0.35); }
+  .hier-connector {
+    width: 1px;
+    height: 30px;
+    background: var(--border-med);
+    background: rgba(26,20,16,0.3);
+  }
+  .hier-row {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hier-clan-node {
+    border: var(--border-thin);
+    background: var(--paper);
+    padding: 0.7rem 1.2rem;
+    text-align: center;
+    min-width: 140px;
+    position: relative;
+  }
+  .hier-clan-node .node-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-ghost); }
+  .hier-clan-node .node-title { font-family: 'Noto Serif JP', serif; font-size: 0.95rem; font-weight: 700; }
+
+  /* CLAN CARDS */
+  .clan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .clan-card {
+    border: var(--border-thin);
+    background: var(--paper-warm);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .clan-card::before {
+    content: attr(data-kanji);
+    position: absolute;
+    bottom: -0.5rem;
+    right: -0.5rem;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(26,20,16,0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .clan-card:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); }
+  .clan-color-bar {
+    height: 3px;
+    margin-bottom: 1rem;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    margin-top: -1.5rem;
+  }
+  .clan-card-symbol {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .clan-card-name {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+  .clan-card-kanji { font-size: 0.8rem; color: var(--ink-ghost); letter-spacing: 0.15em; margin-bottom: 0.5rem; }
+  .clan-card-desc { font-size: 0.82rem; color: var(--ink-faded); line-height: 1.6; }
+  .clan-card-virtue {
+    margin-top: 0.75rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-ghost);
+    border-top: var(--border-thin);
+    padding-top: 0.6rem;
+  }
+
+  /* CLAN DETAIL */
+  .clan-detail { display: none; }
+  .clan-detail.visible { display: block; }
+  .clan-header-bar {
+    height: 4px;
+    margin-bottom: 2rem;
+  }
+  .clan-meta {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .clan-meta-item { }
+  .clan-meta-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 0.25rem; }
+  .clan-meta-value { font-size: 0.9rem; font-weight: 500; }
+
+  /* MEMBER CARDS */
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .member-card {
+    border: var(--border-thin);
+    background: var(--paper);
+    padding: 1.25rem;
+  }
+  .member-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .member-avatar {
+    width: 42px; height: 42px;
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .member-name { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.1rem; }
+  .member-role { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-ghost); }
+  .member-bg { font-size: 0.82rem; color: var(--ink-faded); line-height: 1.7; margin-bottom: 0.75rem; }
+  .member-tattoo {
+    font-size: 0.72rem;
+    border-top: var(--border-thin);
+    padding-top: 0.6rem;
+    color: var(--ink-ghost);
+  }
+  .member-tattoo strong { color: var(--ink-faded); font-weight: 500; }
+
+  /* TAGS */
+  .tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: var(--border-thin);
+    padding: 2px 8px;
+    margin: 2px;
+    color: var(--ink-ghost);
+  }
+  .tag.danger { border-color: var(--red-seal); color: var(--red-seal); }
+  .tag.gold { border-color: var(--gold); color: var(--gold); }
+
+  /* ONI SECTION */
+  .oni-box {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2.5rem;
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .oni-box::before {
+    content: '鬼';
+    position: absolute;
+    right: -1rem;
+    top: -1rem;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 9rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .oni-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 0.25rem;
+  }
+  .oni-sub { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1.5rem; }
+  .oni-body { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.85; }
+  .oni-mutations {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .oni-mutation-item {
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.75rem 1rem;
+  }
+  .oni-mutation-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 0.3rem; }
+  .oni-mutation-val { font-size: 0.88rem; color: rgba(255,255,255,0.75); }
+
+  /* VOTE SYSTEM */
+  .vote-box {
+    border: var(--border-med);
+    padding: 2rem;
+    margin: 2rem 0;
+    background: var(--paper-warm);
+  }
+  .vote-title { font-family: 'Noto Serif JP', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; }
+  .vote-step {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    align-items: flex-start;
+  }
+  .vote-num {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--red-seal);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2rem;
+    text-align: right;
+  }
+  .vote-step-content { font-size: 0.88rem; color: var(--ink-faded); line-height: 1.7; }
+
+  /* RITES TABLE */
+  .rites-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.85rem; }
+  .rites-table th {
+    text-align: left;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-ghost);
+    border-bottom: var(--border-med);
+    padding: 0.5rem 0.75rem;
+    font-weight: 400;
+  }
+  .rites-table td {
+    padding: 0.7rem 0.75rem;
+    border-bottom: var(--border-thin);
+    color: var(--ink-faded);
+    vertical-align: top;
+  }
+  .rites-table tr:last-child td { border-bottom: none; }
+  .rites-table td:first-child { font-weight: 500; color: var(--ink); font-size: 0.88rem; }
+
+  /* ARRIVAL / DEPARTURE */
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.5rem 0;
+  }
+  .flow-step {
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+    padding-bottom: 1.5rem;
+  }
+  .flow-step:last-child { padding-bottom: 0; }
+  .flow-step-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .flow-dot {
+    width: 10px; height: 10px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .flow-dot.red { border-color: var(--red-seal); background: var(--red-seal); }
+  .flow-dot.gold { border-color: var(--gold); background: var(--gold); }
+  .flow-line-seg {
+    flex: 1;
+    width: 1px;
+    background: rgba(26,20,16,0.15);
+    min-height: 20px;
+  }
+  .flow-content { }
+  .flow-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red-seal); margin-bottom: 0.2rem; }
+  .flow-title { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.3rem; }
+  .flow-desc { font-size: 0.82rem; color: var(--ink-faded); line-height: 1.7; }
+
+  /* TATTOO GLOSSARY */
+  .tattoo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .tattoo-item {
+    border: var(--border-thin);
+    padding: 1.25rem;
+    background: var(--paper);
+  }
+  .tattoo-symbol { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .tattoo-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 0.15rem; }
+  .tattoo-meaning { font-size: 0.8rem; color: var(--ink-ghost); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+  .tattoo-desc { font-size: 0.82rem; color: var(--ink-faded); line-height: 1.7; }
+
+  /* BACK BTN */
+  .back-btn {
+    background: none;
+    border: var(--border-thin);
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: var(--ink-faded);
+    margin-bottom: 2rem;
+    transition: background 0.2s;
+  }
+  .back-btn:hover { background: var(--paper-warm); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .header-title { font-size: 1.5rem; }
+    .header-kanji { font-size: 3rem; }
+    .hier-row { flex-direction: column; align-items: center; }
+    .container { padding: 2rem 1rem; }
+    .oni-box { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-kanji">四風組合</div>
+  <div class="header-seal">四<br><span style="font-size:0.5rem;letter-spacing:0.05em">SOUFFLES</span></div>
+  <div class="header-sub">Madera V4 — Document faction confidentiel</div>
+  <h1 class="header-title">Le Syndicat des Quatre Souffles</h1>
+  <div style="color:rgba(255,255,255,0.35);font-size:0.8rem;letter-spacing:0.15em;margin-top:0.5rem;">四風組合 · Shi Fū Kumiai</div>
+  <div class="header-madera-tag">Madera V4 · La Terre Volée · Faction jouable</div>
+</div>
+
+<nav class="nav" id="main-nav">
+  <button class="nav-btn active" onclick="showPage('lore')">Lore</button>
+  <button class="nav-btn" onclick="showPage('hierarchie')">Hiérarchie</button>
+  <button class="nav-btn" onclick="showPage('clans')">Les Clans</button>
+  <button class="nav-btn" onclick="showPage('oni')">L'Oni / Yokai</button>
+  <button class="nav-btn" onclick="showPage('rites')">Rites & Codes</button>
+  <button class="nav-btn" onclick="showPage('tatouages')">Tatouages</button>
+  <button class="nav-btn" onclick="showPage('integration')">Entrée / Sortie</button>
+</nav>
+
+<!-- PAGE LORE -->
+<div class="page active" id="page-lore">
+<div class="container">
+  <div class="section-kicker">Origine & présence</div>
+  <h2 class="section-title">Une ombre venue de l'Est</h2>
+  <div class="section-kanji">東からの影 · Higashi kara no kage</div>
+  <div class="divider"></div>
+
+  <p class="lore-p">Le Syndicat des Quatre Souffles n'est pas une organisation criminelle comme les autres. Il n'a pas de siège social, pas de nom affiché, pas de communiqué. Il a des <strong>clans</strong>, des <strong>couleurs</strong>, des <strong>rites</strong> — et une présence à San Andreas qui remonte aux travailleurs immigrés du chemin de fer du XIXe siècle, dont certains ne sont jamais repartis.</p>
+
+  <p class="lore-p">Aujourd'hui le Syndicat est ce que ses fondateurs appelaient un <em>kumi</em> : une <strong>association de clans liés par le serment, non par le sang</strong>. Il opère dans les espaces que ni la Couronne, ni l'État, ni les Nahari ne contrôlent vraiment — la logistique, l'argent fantôme, les services discrets, l'information.</p>
+
+  <div class="lore-quote">
+    « Nous ne prenons pas de terres. Nous construisons des routes. Et toutes les routes, un jour, passent par nous. »<br>
+    <span style="font-size:0.85rem;color:var(--ink-ghost)">— Proverbe interne du Syndicat</span>
+  </div>
+
+  <p class="lore-p">À San Andreas en 2026, le Syndicat a flairé ce que la découverte du gisement sous le Mont Gordo représente : <strong>un rebalancement du pouvoir</strong>. La Couronne aura besoin de canaux financiers discrets. Les Nahari auront besoin de transporter de l'or sans laisser de traces. L'État aura besoin de renseignements. Le Syndicat peut tout offrir — à un prix calculé non en dollars, mais en <strong>faveurs, en secrets, en loyautés</strong>.</p>
+
+  <p class="lore-p">Les quatre clans du Syndicat portent chacun le nom d'un <strong>élément ou d'un animal sacré</strong> tiré de la cosmologie asiatique. Ils ne communiquent entre eux qu'à travers le <strong>Conseil des Souffles</strong>, organe de gouvernance interne, présidé par celui ou celle qu'on appelle l'<strong>Oni</strong> — ou, dans les périodes de trouble, le <strong>Yokai</strong>.</p>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:700;margin:2rem 0 1rem;">Positionnement dans la V4</h3>
+  <p class="lore-p">Le Syndicat ne prend pas parti publiquement. Il est le <strong>troisième marché</strong> — celui où Couronne, Nahari, État et criminels se retrouvent sans que personne n'ait à se serrer la main en public. Il tire sa puissance de cette neutralité calculée, et la perd dès qu'il choisit un camp de manière visible.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:2rem 0;">
+    <div style="border:var(--border-thin);padding:1.25rem;background:var(--paper-warm);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:0.5rem;">Rôle principal</div>
+      <div style="font-size:0.88rem;color:var(--ink-faded);">Logistique, renseignement, blanchiment, médiation secrète</div>
+    </div>
+    <div style="border:var(--border-thin);padding:1.25rem;background:var(--paper-warm);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:0.5rem;">Couleur officielle</div>
+      <div style="font-size:0.88rem;color:var(--ink-faded);">Aucune publiquement — noir et or en interne</div>
+    </div>
+    <div style="border:var(--border-thin);padding:1.25rem;background:var(--paper-warm);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:0.5rem;">Territoire</div>
+      <div style="font-size:0.88rem;color:var(--ink-faded);">Sans territoire fixe — présence par réseau</div>
+    </div>
+    <div style="border:var(--border-thin);padding:1.25rem;background:var(--paper-warm);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:0.5rem;">Relation Couronne</div>
+      <div style="font-size:0.88rem;color:var(--ink-faded);">Fournisseurs de services — jamais de déférence</div>
+    </div>
+    <div style="border:var(--border-thin);padding:1.25rem;background:var(--paper-warm);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:0.5rem;">Relation Nahari</div>
+      <div style="font-size:0.88rem;color:var(--ink-faded);">Respect mutuel anciens, pragmatisme jeunes</div>
+    </div>
+    <div style="border:var(--border-thin);padding:1.25rem;background:var(--paper-warm);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:0.5rem;">Relation État</div>
+      <div style="font-size:0.88sm;color:var(--ink-faded);">Contacts discrets — jamais d'alliance publique</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PAGE HIERARCHIE -->
+<div class="page" id="page-hierarchie">
+<div class="container">
+  <div class="section-kicker">Structure interne</div>
+  <h2 class="section-title">La Pyramide des Souffles</h2>
+  <div class="section-kanji">組織構造 · Soshiki kōzō</div>
+  <div class="divider"></div>
+
+  <div class="hierarchy">
+    <div class="hier-node oni">
+      <div class="node-label">Sommet — poste unique</div>
+      <div class="node-title">L'Oni / Le Yokai</div>
+      <div class="node-sub">Président du Conseil · modifications rituelles obligatoires</div>
+    </div>
+    <div class="hier-connector"></div>
+    <div class="hier-node conseil">
+      <div class="node-label">Organe de gouvernance</div>
+      <div class="node-title">Le Conseil des Souffles</div>
+      <div class="node-sub">4 Voix de clan + l'Oni · vote toutes les 2 semaines</div>
+    </div>
+    <div class="hier-connector"></div>
+    <div class="hier-row">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+        <div class="hier-connector" style="height:20px;"></div>
+        <div class="hier-clan-node" style="border-top:2px solid var(--clan-feu);">
+          <div class="node-label">Clan I</div>
+          <div class="node-title" style="color:var(--clan-feu);">Clan du Feu Dormant</div>
+          <div style="font-size:0.7rem;color:var(--ink-ghost);">炎 · Honō</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+        <div class="hier-connector" style="height:20px;"></div>
+        <div class="hier-clan-node" style="border-top:2px solid var(--clan-grue);">
+          <div class="node-label">Clan II</div>
+          <div class="node-title" style="color:var(--clan-grue);">Clan de la Grue Cendrée</div>
+          <div style="font-size:0.7rem;color:var(--ink-ghost);">鶴 · Tsuru</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+        <div class="hier-connector" style="height:20px;"></div>
+        <div class="hier-clan-node" style="border-top:2px solid var(--clan-serpent);">
+          <div class="node-label">Clan III</div>
+          <div class="node-title" style="color:var(--clan-serpent);">Clan du Serpent de Jade</div>
+          <div style="font-size:0.7rem;color:var(--ink-ghost);">蛇 · Hebi</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+        <div class="hier-connector" style="height:20px;"></div>
+        <div class="hier-clan-node" style="border-top:2px solid var(--clan-pierre);">
+          <div class="node-label">Clan IV</div>
+          <div class="node-title" style="color:var(--clan-pierre);">Clan de la Pierre Noire</div>
+          <div style="font-size:0.7rem;color:var(--ink-ghost);">岩 · Iwa</div>
+        </div>
+      </div>
+    </div>
+    <div class="hier-connector"></div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+      <div class="hier-clan-node" style="min-width:110px;background:var(--paper-warm);border-style:dashed;">
+        <div class="node-label">Statut</div>
+        <div class="node-title" style="font-size:0.82rem;">Associés</div>
+        <div style="font-size:0.68rem;color:var(--ink-ghost);">Sans clan fixe</div>
+      </div>
+      <div class="hier-clan-node" style="min-width:110px;background:var(--paper-warm);border-style:dashed;">
+        <div class="node-label">Statut</div>
+        <div class="node-title" style="font-size:0.82rem;">Ombres</div>
+        <div style="font-size:0.68rem;color:var(--ink-ghost);">Agents dormants</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.1rem;margin:2rem 0 1rem;">Les rangs internes</h3>
+  <table class="rites-table">
+    <thead>
+      <tr>
+        <th>Rang</th>
+        <th>Nom japonais</th>
+        <th>Rôle</th>
+        <th>Accès Conseil</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>L'Oni / Yokai</td>
+        <td>鬼 / 妖怪</td>
+        <td>Président du Conseil, décision finale, porte les marques</td>
+        <td>Vote + veto</td>
+      </tr>
+      <tr>
+        <td>Voix de Clan</td>
+        <td>声 · Koe</td>
+        <td>Chef de clan, siège au Conseil, nomme l'Oni candidat</td>
+        <td>Vote</td>
+      </tr>
+      <tr>
+        <td>Bras Droit</td>
+        <td>右腕 · Migiude</td>
+        <td>Second du clan, gère les opérations quotidiennes</td>
+        <td>Observateur</td>
+      </tr>
+      <tr>
+        <td>Frère / Sœur jurée</td>
+        <td>兄弟 · Kyōdai</td>
+        <td>Membre plein, tatouage de clan complété</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Aspirant</td>
+        <td>若衆 · Wakashū</td>
+        <td>En période d'épreuve (3 lunes minimum)</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Associé</td>
+        <td>組 · Kumi</td>
+        <td>Prestataire extérieur, pas de serment</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Ombre</td>
+        <td>影 · Kage</td>
+        <td>Agent dormant, identité publique non compromised</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="lore-p" style="margin-top:1.5rem;">Le Syndicat pratique ce qu'il appelle le <strong>principe du Bambou</strong> : toute la structure peut plier sans casser. Si l'Oni tombe, le Conseil élit. Si un clan disparaît, les trois autres absorbent ses membres. <strong>Aucun individu n'est irremplaçable</strong>, et chaque membre le sait dès son serment.</p>
+</div>
+</div>
+
+<!-- PAGE CLANS -->
+<div class="page" id="page-clans">
+<div class="container">
+
+  <!-- CLAN OVERVIEW -->
+  <div id="clan-overview">
+    <div class="section-kicker">Les quatre clans</div>
+    <h2 class="section-title">Clans du Syndicat</h2>
+    <div class="section-kanji">四つの氏族 · Yottsu no shizoku</div>
+    <div class="divider"></div>
+    <p class="lore-p">Chaque clan est autonome dans ses opérations mais lié au Conseil par le serment. Cliquez sur un clan pour voir ses membres et son lore détaillé.</p>
+
+    <div class="clan-grid">
+      <div class="clan-card" data-kanji="炎" onclick="showClan('feu')">
+        <div class="clan-color-bar" style="background:var(--clan-feu);"></div>
+        <div class="clan-card-symbol">🔥</div>
+        <div class="clan-card-name">Clan du Feu Dormant</div>
+        <div class="clan-card-kanji">炎の一族 · Honō no Ichizoku</div>
+        <div class="clan-card-desc">Muscle et protection. Anciens yakuza reconvertis, gardes du corps, combattants rituels. Le feu qui ne s'éteint jamais.</div>
+        <div class="clan-card-virtue">Vertu : Courage · Loyauté · Discipline</div>
+      </div>
+      <div class="clan-card" data-kanji="鶴" onclick="showClan('grue')">
+        <div class="clan-color-bar" style="background:var(--clan-grue);"></div>
+        <div class="clan-card-symbol">🦢</div>
+        <div class="clan-card-name">Clan de la Grue Cendrée</div>
+        <div class="clan-card-kanji">灰色鶴の一族 · Haiiro Tsuru no Ichizoku</div>
+        <div class="clan-card-desc">Intelligence, information, négociation. La grue vole haut, voit tout, ne touche rien qu'elle ne veuille toucher.</div>
+        <div class="clan-card-virtue">Vertu : Patience · Discernement · Élégance</div>
+      </div>
+      <div class="clan-card" data-kanji="蛇" onclick="showClan('serpent')">
+        <div class="clan-color-bar" style="background:var(--clan-serpent);"></div>
+        <div class="clan-card-symbol">🐍</div>
+        <div class="clan-card-name">Clan du Serpent de Jade</div>
+        <div class="clan-card-kanji">翡翠蛇の一族 · Hisui Hebi no Ichizoku</div>
+        <div class="clan-card-desc">Argent, commerce, blanchiment. Le serpent ne fait pas de bruit — il est déjà là quand on le cherche.</div>
+        <div class="clan-card-virtue">Vertu : Prudence · Calcul · Adaptabilité</div>
+      </div>
+      <div class="clan-card" data-kanji="岩" onclick="showClan('pierre')">
+        <div class="clan-color-bar" style="background:var(--clan-pierre);"></div>
+        <div class="clan-card-symbol">⛰️</div>
+        <div class="clan-card-name">Clan de la Pierre Noire</div>
+        <div class="clan-card-kanji">黒石の一族 · Kuroishi no Ichizoku</div>
+        <div class="clan-card-desc">Mémoire, archives, rites. Ce clan détient les secrets du Syndicat depuis sa fondation. Ils ne parlent jamais du passé — sauf si nécessaire.</div>
+        <div class="clan-card-virtue">Vertu : Mémoire · Silence · Permanence</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAN FEU DETAIL -->
+  <div class="clan-detail" id="clan-feu">
+    <button class="back-btn" onclick="hideClan()">← Retour aux clans</button>
+    <div class="clan-header-bar" style="background:var(--clan-feu);"></div>
+    <div class="section-kicker" style="color:var(--clan-feu);">Clan I</div>
+    <h2 class="section-title">Clan du Feu Dormant</h2>
+    <div class="section-kanji">炎の一族 · Honō no Ichizoku</div>
+    <div class="divider" style="background:var(--clan-feu);"></div>
+    <div class="clan-meta">
+      <div class="clan-meta-item"><div class="clan-meta-label">Couleur</div><div class="clan-meta-value" style="color:var(--clan-feu);">Rouge braise</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Symbole</div><div class="clan-meta-value">La flamme inversée 炎</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Spécialité</div><div class="clan-meta-value">Protection, force, intimidation rituelle</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Origine</div><div class="clan-meta-value">Anciens yakuza, community fighters</div></div>
+    </div>
+    <p class="lore-p">Le Feu Dormant est le clan le plus visible — et le plus mal compris. On les voit comme des brutes ; ils se voient comme des <strong>gardiens</strong>. Chaque membre a traversé une épreuve physique rituelle avant d'être accepté, et porte sur le dos un tatouage de flammes qui monte jusqu'aux omoplates. La discipline interne est militaire. Le silence en public est absolu.</p>
+    <p class="lore-p">À San Andreas, le Feu Dormant fournit la sécurité de haut niveau au Syndicat, escorte les transferts sensibles, et représente la <strong>force de dissuasion</strong> qui permet aux autres clans de négocier sans armement visible. Ils n'attaquent jamais en premier — c'est une règle absolue. Mais quand ils répondent, la réponse est définitive.</p>
+
+    <div class="lore-quote">« Le feu ne court pas après le bois. C'est le bois qui vient à lui. »</div>
+
+    <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2rem 0 1rem;">Membres du clan — 4 profils jouables</h3>
+    <div class="members-grid">
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(192,57,43,0.1);color:var(--clan-feu);">炎</div>
+          <div><div class="member-name">Kenji Murakami</div><div class="member-role">Voix du Feu · Chef de clan</div></div>
+        </div>
+        <p class="member-bg">Ancien gardien de sécurité pour une famille yakuza d'Osaka, arrivé à San Andreas via Honolulu. Il a 47 ans, parle peu, observe tout. Sa légitimité vient d'une seule chose : il n'a jamais menti à un membre du clan. Gère le Syndicat comme un dojo — avec rigueur et sans affect.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Dragon rouge de l'omoplate droite au poignet droit. Flammes inversées dans le cou. Cercle de clan sur la nuque.</div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(192,57,43,0.1);color:var(--clan-feu);">火</div>
+          <div><div class="member-name">Hana Yoshida</div><div class="member-role">Bras Droit · Entraîneuse</div></div>
+        </div>
+        <p class="member-bg">Ancienne compétitrice de MMA reconvertie après une blessure. Hana est celle qui évalue les aspirants du clan — elle a refusé sept candidats en deux ans. Derrière sa politesse impeccable se cache une exigence absolue. Elle est la première à arriver aux réunions et la dernière à partir.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Chrysanthème de feu sur l'avant-bras gauche. Idéogramme 炎 sur la clavicule gauche.</div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(192,57,43,0.1);color:var(--clan-feu);">燃</div>
+          <div><div class="member-name">Tarou Seki</div><div class="member-role">Frère juré · Escorteur</div></div>
+        </div>
+        <p class="member-bg">Jeune, 24 ans, second-génération né à LS. Tarou parle le japonais avec un accent américain qui gêne les anciens. Il compense par une loyauté totale et une fiabilité mécanique — il n'a jamais raté une escorte. Son ambition est visible et agace Kenji. Il pourrait devenir Voix de Clan — ou tout perdre si son ambition le précède.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Flamme simple sur le dos de la main droite. En cours de complétion.</div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(192,57,43,0.1);color:var(--clan-feu);">守</div>
+          <div><div class="member-name">Michiko "Michi" Tanabe</div><div class="member-role">Frère jurée · Médecin de clan</div></div>
+        </div>
+        <p class="member-bg">Médecin diplômée qui soigne les membres du Syndicat hors du circuit hospitalier. Michi a rejoint le Feu Dormant après que la Couronne a menacé sa clinique de Paleto Bay. Elle n'est pas une combattante — mais elle sait exactement où frapper pour que ça ne laisse pas de trace visible. Son calme est légendaire.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Fleur de prunier sur le poignet intérieur gauche. Discrète, presque invisible sous la montre.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAN GRUE DETAIL -->
+  <div class="clan-detail" id="clan-grue">
+    <button class="back-btn" onclick="hideClan()">← Retour aux clans</button>
+    <div class="clan-header-bar" style="background:var(--clan-grue);"></div>
+    <div class="section-kicker" style="color:var(--clan-grue);">Clan II</div>
+    <h2 class="section-title">Clan de la Grue Cendrée</h2>
+    <div class="section-kanji">灰色鶴の一族 · Haiiro Tsuru no Ichizoku</div>
+    <div class="divider" style="background:var(--clan-grue);"></div>
+    <div class="clan-meta">
+      <div class="clan-meta-item"><div class="clan-meta-label">Couleur</div><div class="clan-meta-value" style="color:var(--clan-grue);">Bleu ardoise</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Symbole</div><div class="clan-meta-value">La grue en vol 鶴</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Spécialité</div><div class="clan-meta-value">Renseignement, négociation, relations extérieures</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Origine</div><div class="clan-meta-value">Diplomates, traducteurs, espions reconvertis</div></div>
+    </div>
+    <p class="lore-p">La Grue est le visage du Syndicat — quand le Syndicat a un visage. Ses membres parlent plusieurs langues, fréquentent les galas de la Couronne aussi naturellement que les réunions de rue des Nahari. Leur pouvoir est celui de <strong>l'entre-deux</strong> : ils savent ce que chaque camp veut entendre, et le disent avec la même sincérité calculée.</p>
+    <p class="lore-p">En interne, la Grue gère le réseau d'informateurs du Syndicat — des contacts dans le SASP Nord, dans les médias, dans les cabinets d'avocats. Aucune information ne rentre dans le Syndicat sans passer par eux. C'est à la fois leur force et leur fragilité : s'ils décident de garder une information pour eux, personne ne peut le savoir.</p>
+
+    <div class="lore-quote">« Une grue ne se pose jamais deux fois au même endroit. On la reconnaît en vol — jamais à terre. »</div>
+
+    <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2rem 0 1rem;">Membres du clan — 4 profils jouables</h3>
+    <div class="members-grid">
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(26,82,118,0.1);color:var(--clan-grue);">鶴</div>
+          <div><div class="member-name">Soo-Yeon Lim</div><div class="member-role">Voix de la Grue · Chef de clan</div></div>
+        </div>
+        <p class="member-bg">Née à Séoul, élevée à Paris, installée à LS. Avocate d'affaires en surface, négociatrice pour le Syndicat en coulisse. Soo-Yeon a négocié des trêves entre gangs adverses, des contrats avec la Couronne, et des immunités officieuses avec un procureur adjoint. Elle ne signe rien elle-même. Tout passe par des intermédiaires.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Grue en vol sur l'omoplate gauche, idéogramme 鶴 derrière l'oreille droite. Discrets, non visibles en tenue professionnelle.</div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(26,82,118,0.1);color:var(--clan-grue);">風</div>
+          <div><div class="member-name">Ryo Nakamura</div><div class="member-role">Bras Droit · Coordinateur réseau</div></div>
+        </div>
+        <p class="member-bg">Ancien journaliste pour un journal de LS, Ryo a compris que les meilleures informations ne se publient pas — elles se vendent. Il a rejoint la Grue il y a cinq ans. Il maintient un réseau de contacts dans tous les médias, au DOJ, et au SASP Sud. Sa couverture publique : consultant en communication pour entreprises privées.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Bambou et brume sur la cuisse gauche. Impossible à voir sans consentement.</div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(26,82,118,0.1);color:var(--clan-grue);">灰</div>
+          <div><div class="member-name">Ji-Ho Cha</div><div class="member-role">Frère juré · Intermédiaire de terrain</div></div>
+        </div>
+        <p class="member-bg">Ji-Ho est le contact que les autres factions ne savent pas qu'ils ont. Il se présente toujours comme "un ami commun". Il a rencontré des représentants de la Couronne, des anciens Nahari, et des agents du SASP Nord — jamais sous le même nom. Son talent pour adapter son identité sociale à chaque interlocuteur est presque artistique.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Nuage gris sur la hanche droite. Unique, discret.</div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(26,82,118,0.1);color:var(--clan-grue);">声</div>
+          <div><div class="member-name">Emi Watanabe</div><div class="member-role">Aspirante · Traductrice de liaison</div></div>
+        </div>
+        <p class="member-bg">26 ans, interprète officielle pour une firme juridique de LS. Elle n'est pas encore kyōdai — elle est wakashū depuis deux lunes. Son recrutement a été décidé par Soo-Yeon seule, sans consultation du clan, ce qui crée des tensions internes. Emi parle sept langues. Elle écoute tout. Elle ne sait pas encore pour qui elle travaille vraiment.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Pas encore — en attente de validation du serment.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAN SERPENT DETAIL -->
+  <div class="clan-detail" id="clan-serpent">
+    <button class="back-btn" onclick="hideClan()">← Retour aux clans</button>
+    <div class="clan-header-bar" style="background:var(--clan-serpent);"></div>
+    <div class="section-kicker" style="color:var(--clan-serpent);">Clan III</div>
+    <h2 class="section-title">Clan du Serpent de Jade</h2>
+    <div class="section-kanji">翡翠蛇の一族 · Hisui Hebi no Ichizoku</div>
+    <div class="divider" style="background:var(--clan-serpent);"></div>
+    <div class="clan-meta">
+      <div class="clan-meta-item"><div class="clan-meta-label">Couleur</div><div class="clan-meta-value" style="color:var(--clan-serpent);">Vert jade</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Symbole</div><div class="clan-meta-value">Le serpent enroulé 蛇</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Spécialité</div><div class="clan-meta-value">Finances, commerce, blanchiment d'actifs</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Origine</div><div class="clan-meta-value">Marchands, comptables, réseaux diaspora</div></div>
+    </div>
+    <p class="lore-p">Le Serpent de Jade fait ce que le Syndicat fait de mieux : <strong>transformer l'argent sale en argent propre</strong>. Ils opèrent à travers un réseau de commerces de façade, d'importateurs textiles, de sociétés de portage et de fonderies discrètes. Dans la V4, ils sont le partenaire naturel des Corso Nahari — sans jamais l'avouer publiquement.</p>
+    <p class="lore-p">Le Serpent n'accumule pas la richesse pour lui-même — il la fait <strong>circuler</strong>. C'est leur philosophie : le serpent ne garde pas sa proie, il l'avale et continue. Tout actif qui stagne trop longtemps devient suspect. Tout flux qui s'arrête est un danger.</p>
+
+    <div class="lore-quote">« Le jade ne brille pas sous la lumière. Il brille quand on le cache. »</div>
+
+    <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2rem 0 1rem;">Membres du clan — 3 profils jouables</h3>
+    <div class="members-grid">
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(30,107,58,0.1);color:var(--clan-serpent);">蛇</div>
+          <div><div class="member-name">Wei Liang</div><div class="member-role">Voix du Jade · Chef de clan</div></div>
+        </div>
+        <p class="member-bg">Wei Liang tient une chaîne d'épiceries asiatiques à LS et Paleto Bay. C'est sa couverture depuis vingt ans. Il est aussi l'un des blanchisseurs les plus efficaces de San Andreas — son réseau de fournisseurs fictifs peut absorber jusqu'à 400 000 dollars par semaine sans laisser de trace bancaire propre. Il sourit toujours. Ses yeux ne sourient jamais.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Serpent de jade enroulé sur le bras gauche, de l'épaule au poignet. Porté sous des chemises longues.</div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(30,107,58,0.1);color:var(--clan-serpent);">翠</div>
+          <div><div class="member-name">Clara Tsang</div><div class="member-role">Bras Droit · Comptable principale</div></div>
+        </div>
+        <p class="member-bg">Hong-Kongaise de naissance, CPA (comptable agréée) de formation. Clara est la personne qui transforme les schémas de blanchiment en séries de transactions légalement inattaquables. Elle a deux règles : aucun client ne la rencontre en personne deux fois dans le même mois, et tout montant au-dessus de 10 000 dollars est fractionné avant de toucher un compte.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Lotus vert sur l'intérieur du poignet droit. Signifie l'entrée dans le Serpent.</div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(30,107,58,0.1);color:var(--clan-serpent);">商</div>
+          <div><div class="member-name">Danny Park</div><div class="member-role">Frère juré · Logistics & terrain</div></div>
+        </div>
+        <p class="member-bg">Né à Koreatown, LS. Danny gère les "boutiques" physiques du Serpent — les points de collecte d'espèces, les fonderies de convenance, les transactions en direct avec les Corso et les gangs Sud. Il est le visage terrain que Wei Liang n'est plus. Son problème : il prend goût à la visibilité, ce qui inquiète Clara et agace Wei Liang.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Écaille de serpent en train de complétion sur l'avant-bras droit. 3 écailles sur 7 posées.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLAN PIERRE DETAIL -->
+  <div class="clan-detail" id="clan-pierre">
+    <button class="back-btn" onclick="hideClan()">← Retour aux clans</button>
+    <div class="clan-header-bar" style="background:var(--clan-pierre);"></div>
+    <div class="section-kicker" style="color:var(--clan-pierre);">Clan IV</div>
+    <h2 class="section-title">Clan de la Pierre Noire</h2>
+    <div class="section-kanji">黒石の一族 · Kuroishi no Ichizoku</div>
+    <div class="divider" style="background:var(--clan-pierre);"></div>
+    <div class="clan-meta">
+      <div class="clan-meta-item"><div class="clan-meta-label">Couleur</div><div class="clan-meta-value" style="color:var(--clan-pierre);">Brun obsidienne</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Symbole</div><div class="clan-meta-value">La pierre percée 岩</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Spécialité</div><div class="clan-meta-value">Archives, rites, mémoire institutionnelle</div></div>
+      <div class="clan-meta-item"><div class="clan-meta-label">Origine</div><div class="clan-meta-value">Prêtres shinto, archivistes, anciens du premier cercle</div></div>
+    </div>
+    <p class="lore-p">La Pierre Noire est le clan le plus ancien et le moins compris. Ses membres n'opèrent pas — ils <strong>conservent</strong>. Ils détiennent les archives du Syndicat depuis sa fondation : serments enregistrés, dettes de faveurs, secrets des membres. Si la Grue est la mémoire vivante du Syndicat, la Pierre Noire en est la mémoire morte — et la mort, on le sait, a une longue patience.</p>
+    <p class="lore-p">C'est la Pierre Noire qui préside les rites d'entrée, les cérémonies de serment, et les jugements internes. Quand un membre est soupçonné de trahison, c'est la Pierre Noire qui instruit. Elle ne prononce pas les sentences — mais elle fournit les preuves. Et ses archives ne mentent jamais, parce qu'elles ne peuvent pas se permettre de mentir.</p>
+
+    <div class="lore-quote">« La pierre ne bouge pas. C'est ce qui fait peur à ceux qui courent. »</div>
+
+    <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2rem 0 1rem;">Membres du clan — 3 profils jouables</h3>
+    <div class="members-grid">
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(110,76,30,0.1);color:var(--clan-pierre);">岩</div>
+          <div><div class="member-name">Fumiko Ōe</div><div class="member-role">Voix de la Pierre · Gardienne des archives</div></div>
+        </div>
+        <p class="member-bg">68 ans. La doyenne du Syndicat. Fumiko était déjà là quand le Syndicat s'est installé à San Andreas il y a trente ans. Elle connaît chaque serment prononcé, chaque dette contractée, chaque secret partagé. Elle ne menace jamais — elle rappelle. C'est suffisant. Ses yeux sont teintés d'un gris presque blanc depuis un rite de passage qu'elle n'a jamais décrit.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Montagne stylisée couvrant tout le dos. Les quatre points cardinaux en kanji aux extrémités. Complet depuis 40 ans.</div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(110,76,30,0.1);color:var(--clan-pierre);">礼</div>
+          <div><div class="member-name">Isao Nagata</div><div class="member-role">Bras Droit · Maître des rites</div></div>
+        </div>
+        <p class="member-bg">Ancien prêtre shinto, exclu de son sanctuaire pour des raisons que personne ne connaît entièrement. Isao conduit les cérémonies du Syndicat — serments d'entrée, élection de l'Oni, modifications rituelles. Il est l'un des deux tatoueurs officiels du Syndicat. Ses mains ne tremblent jamais. On dit qu'il peut lire le caractère d'un homme dans la façon dont il supporte l'encre.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> L'idéogramme 礼 (rite, respect) sur la paume droite. Visible à chaque geste.</div>
+      </div>
+      <div class="member-card">
+        <div class="member-header">
+          <div class="member-avatar" style="background:rgba(110,76,30,0.1);color:var(--clan-pierre);">石</div>
+          <div><div class="member-name">Nao Ishida</div><div class="member-role">Frère juré · Enquêteur interne</div></div>
+        </div>
+        <p class="member-bg">Nao est la personne que le Syndicat envoie quand une enquête interne est nécessaire. Il ne parle pas pendant ses investigations — il écoute, observe, note. Ses rapports à Fumiko sont exhaustifs et sans émotion. Il a 34 ans et quelque chose dans son regard indique qu'il en a vus beaucoup plus. Il est le seul membre de la Pierre Noire à sortir régulièrement du bâtiment du clan.</p>
+        <div class="member-tattoo"><strong>Tatouage :</strong> Lignes géométriques représentant des strates géologiques sur l'avant-bras gauche.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- PAGE ONI -->
+<div class="page" id="page-oni">
+<div class="container">
+  <div class="section-kicker">Poste suprême</div>
+  <h2 class="section-title">L'Oni — Le Yokai</h2>
+  <div class="section-kanji">鬼 / 妖怪 · Oni / Yōkai</div>
+  <div class="divider"></div>
+
+  <div class="oni-box">
+    <div class="oni-title">Le Masque et la Chair</div>
+    <div class="oni-sub">De l'humain à la figure — le rite de l'Oni</div>
+    <div class="oni-body">
+      <p style="margin-bottom:1rem;">L'Oni n'est pas un titre — c'est une <strong style="color:rgba(255,255,255,0.9);">transformation</strong>. Celui ou celle qui accède à la présidence du Conseil des Souffles cesse d'être une personne ordinaire aux yeux du Syndicat. Il ou elle devient une figure — mi-humaine, mi-creature de légende — dont l'autorité est à la fois politique et rituelle.</p>
+      <p style="margin-bottom:1rem;">La transformation est physique, irréversible en partie, et doit être visible. Elle marque publiquement — pour les membres du Syndicat — le franchissement du seuil entre l'humain et la fonction. C'est pourquoi on dit parfois <em>Yokai</em> en période de trouble : le terme suggère une nature encore plus impénétrable, plus ambiguë.</p>
+      <p>Le rite dure une nuit complète, conduit par Isao Nagata de la Pierre Noire. Aucun observateur extérieur. Ce qui se passe cette nuit-là reste dans les archives scellées de Fumiko Ōe.</p>
+    </div>
+    <div class="oni-mutations">
+      <div class="oni-mutation-item">
+        <div class="oni-mutation-label">Teinte des yeux</div>
+        <div class="oni-mutation-val">Sclères noircies au kohl permanent · pupilles laissées naturelles · contact ritualisé</div>
+      </div>
+      <div class="oni-mutation-item">
+        <div class="oni-mutation-label">Teinte de la peau</div>
+        <div class="oni-mutation-val">Pigmentation partielle des mains en encre de sumi · motifs géométriques sur nuque et tempes</div>
+      </div>
+      <div class="oni-mutation-item">
+        <div class="oni-mutation-label">Tatouage Oni</div>
+        <div class="oni-mutation-val">Masque d'Oni couvrant l'intégralité du dos · les quatre symboles de clan aux quatre extrémités du corps</div>
+      </div>
+      <div class="oni-mutation-item">
+        <div class="oni-mutation-label">Bijoux rituels</div>
+        <div class="oni-mutation-val">Bague de présidence en laque noire et jade · portée à l'index gauche · non retirée sauf mort</div>
+      </div>
+      <div class="oni-mutation-item">
+        <div class="oni-mutation-label">Port du masque</div>
+        <div class="oni-mutation-val">Masque d'Oni traditionnel porté lors des réunions plénières du Conseil — jamais en dehors</div>
+      </div>
+      <div class="oni-mutation-item">
+        <div class="oni-mutation-label">Nom ritualisé</div>
+        <div class="oni-mutation-val">Perd son prénom en public · n'est plus appelé que « l'Oni » ou « Oni-sama » par les membres</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.1rem;margin:2rem 0 1rem;">Le système de vote — Toutes les Deux Lunes</h3>
+
+  <div class="vote-box">
+    <div class="vote-title">Renouvellement de la Présidence</div>
+    <p style="font-size:0.85rem;color:var(--ink-faded);margin-bottom:1.5rem;">Toutes les deux semaines (« deux lunes »), le Conseil des Souffles se réunit pour un vote de confirmation ou de changement. L'Oni actuel peut être maintenu, remplacé, ou — cas extrême — déclaré Yokai si le vote atteint l'unanimité négative.</p>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-step-line"><div class="flow-dot red"></div><div class="flow-line-seg"></div></div>
+        <div class="flow-content">
+          <div class="flow-label">J-3</div>
+          <div class="flow-title">Annonce de la Lune</div>
+          <div class="flow-desc">La Pierre Noire annonce la date de la réunion. Aucune opération du Syndicat ne peut être déclenchée dans les 48h précédant le vote. Période de silence.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-line-seg"></div></div>
+        <div class="flow-content">
+          <div class="flow-label">J-1</div>
+          <div class="flow-title">Candidatures</div>
+          <div class="flow-desc">Toute Voix de Clan peut se porter candidate — ou présenter un membre de son clan. L'Oni sortant est candidat d'office. Les candidatures sont scellées par la Pierre Noire.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-line-seg"></div></div>
+        <div class="flow-content">
+          <div class="flow-label">Jour J — soir</div>
+          <div class="flow-title">Le Conseil des Souffles</div>
+          <div class="flow-desc">Réunion plénière. Chaque Voix vote en déposant une pierre dans un bol : noire pour maintien, blanche pour changement. L'Oni sortant ne vote pas. Majorité simple décide.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-line"><div class="flow-dot gold"></div><div class="flow-line-seg"></div></div>
+        <div class="flow-content">
+          <div class="flow-label">Si changement</div>
+          <div class="flow-title">Désignation et Transition</div>
+          <div class="flow-desc">L'Oni sortant remet sa bague de présidence. Le nouvel Oni passe la nuit du rite avec Isao Nagata. Il ne sort du lieu rituel que le lendemain, transformé.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-line-seg"></div></div>
+        <div class="flow-content">
+          <div class="flow-label">Cas exceptionnel</div>
+          <div class="flow-title">Déclaration Yokai</div>
+          <div class="flow-desc">Si unanimité des 4 Voix contre l'Oni en place ET qu'un candidat recueille 3 voix, l'Oni est déclaré Yokai — statut d'exil honorable. Il conserve ses marques mais perd tout pouvoir. Ne peut plus être réélu.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="lore-p">En pratique, l'Oni est rarement changé d'une lune à l'autre — mais <strong>la menace du vote est permanente</strong>. C'est ce qui force l'Oni à rester connecté aux Voix de Clan, à ne jamais gouverner seul, à maintenir des équilibres. Un Oni qui oublie qu'il gouverne par consentement trouve souvent quatre pierres blanches dans le bol.</p>
+</div>
+</div>
+
+<!-- PAGE RITES -->
+<div class="page" id="page-rites">
+<div class="container">
+  <div class="section-kicker">Codes & cérémonies</div>
+  <h2 class="section-title">Rites et Protocoles</h2>
+  <div class="section-kanji">儀式と作法 · Gishiki to sahō</div>
+  <div class="divider"></div>
+
+  <p class="lore-p">Le Syndicat des Quatre Souffles est une organisation profondément <strong>rituelle</strong>. Chaque action d'importance — entrée, promotion, trahison, mort, vote — est encadrée par un protocole précis. Ce n'est pas du formalisme vide : les rites créent une <em>dette symbolique</em> entre le membre et le groupe qui est aussi contraignante que n'importe quel contrat.</p>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2rem 0 1rem;">Les rites principaux</h3>
+  <table class="rites-table">
+    <thead>
+      <tr><th>Rite</th><th>Nom japonais</th><th>Occasion</th><th>Officiant</th><th>Durée / Détail</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Le Serment du Souffle</td>
+        <td>誓いの息吹</td>
+        <td>Entrée comme kyōdai</td>
+        <td>Voix de Clan + Nagata</td>
+        <td>Nuit complète. Jeûne 24h avant. Serment oral enregistré par Pierre Noire.</td>
+      </tr>
+      <tr>
+        <td>La Nuit du Masque</td>
+        <td>仮面の夜</td>
+        <td>Élection Oni</td>
+        <td>Isao Nagata seul</td>
+        <td>Nuit complète. Modifications physiques. Archives scellées.</td>
+      </tr>
+      <tr>
+        <td>Le Bain de Cendres</td>
+        <td>灰の浴</td>
+        <td>Promotion Bras Droit</td>
+        <td>Voix de Clan</td>
+        <td>Demi-nuit. Bains rituels, encens, tatouage de rang.</td>
+      </tr>
+      <tr>
+        <td>Le Jugement des Pierres</td>
+        <td>石の裁き</td>
+        <td>Enquête trahison</td>
+        <td>Pierre Noire (Fumiko)</td>
+        <td>Variable. Huis clos. Verdict par dépôt de pierres (même système que le vote Oni).</td>
+      </tr>
+      <tr>
+        <td>La Coupe du Silence</td>
+        <td>沈黙の杯</td>
+        <td>Mort d'un membre kyōdai</td>
+        <td>Tous les membres présents</td>
+        <td>Tasse de saké vide déposée devant l'absent. Minute de silence absolue.</td>
+      </tr>
+      <tr>
+        <td>Le Fil Noué</td>
+        <td>結ばれた糸</td>
+        <td>Alliance extérieure</td>
+        <td>Voix de Clan concernée</td>
+        <td>Échange d'un fil de couleur de clan avec le partenaire extérieur. Non tatouage — juste le fil.</td>
+      </tr>
+      <tr>
+        <td>Le Retour du Bambou</td>
+        <td>竹の帰還</td>
+        <td>Sortie honorable du Syndicat</td>
+        <td>L'Oni</td>
+        <td>Remise d'un bâton de bambou. Le membre conserve ses tatouages mais ne parle plus au nom du Syndicat.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2rem 0 1rem;">Les Trois Interdits</h3>
+  <p class="lore-p">Toute violation d'un interdit est jugée par la Pierre Noire. Les deux premiers interdits peuvent mener à l'exil. Le troisième mène à la dissolution complète du lien — sans processus, sans appel.</p>
+  <div style="display:flex;flex-direction:column;gap:0.75rem;margin:1.5rem 0;">
+    <div style="border:1px solid var(--red-seal);padding:1.25rem;background:rgba(139,26,26,0.03);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--red-seal);margin-bottom:0.3rem;">Interdit I</div>
+      <div style="font-weight:500;margin-bottom:0.3rem;">Jamais de sang de membre contre membre</div>
+      <div style="font-size:0.82rem;color:var(--ink-faded);">Aucun membre du Syndicat ne peut ordonner ou exécuter physiquement une violence létale contre un autre membre. Les conflits internes se règlent par jugement de la Pierre Noire.</div>
+    </div>
+    <div style="border:1px solid var(--red-seal);padding:1.25rem;background:rgba(139,26,26,0.03);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--red-seal);margin-bottom:0.3rem;">Interdit II</div>
+      <div style="font-weight:500;margin-bottom:0.3rem;">Jamais de serment public contre le Syndicat</div>
+      <div style="font-size:0.82rem;color:var(--ink-faded);">Un membre ne peut pas, sous quelle forme que ce soit, témoigner contre le Syndicat devant une autorité extérieure. Il peut se taire. Il peut partir. Il ne peut pas parler.</div>
+    </div>
+    <div style="border:2px solid var(--red-seal);padding:1.25rem;background:rgba(139,26,26,0.05);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--red-seal);margin-bottom:0.3rem;">Interdit III — Absolu</div>
+      <div style="font-weight:500;margin-bottom:0.3rem;">Jamais de trahison des archives de la Pierre Noire</div>
+      <div style="font-size:0.82rem;color:var(--ink-faded);">Révéler, copier, ou transférer le contenu des archives de Fumiko Ōe est le seul acte pour lequel le Syndicat réunit — sans vote, sans délai — l'ensemble des Voix pour décider d'une réponse. Cette réponse n'a jamais été documentée. On suppose qu'elle est définitive.</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2rem 0 1rem;">Codes visuels du quotidien</h3>
+  <table class="rites-table">
+    <thead><tr><th>Signal</th><th>Signification</th></tr></thead>
+    <tbody>
+      <tr><td>Fil de couleur de clan porté au poignet gauche</td><td>Membre actif du clan — reconnaissable par les initiés</td></tr>
+      <tr><td>Tasse de thé retournée sur la table</td><td>Réunion discrète demandée — sans urgence</td></tr>
+      <tr><td>Tasse de thé droite mais vide</td><td>Danger — évacuer sans bruit</td></tr>
+      <tr><td>Pièce de monnaie asiatique ancienne offerte</td><td>Invitation à un premier contact ou à une transaction</td></tr>
+      <tr><td>Baguettes posées en croix</td><td>Refus — sans explication requise</td></tr>
+      <tr><td>Inclination légère, main droite sur la poitrine</td><td>Reconnaissance entre membres du Syndicat</td></tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<!-- PAGE TATOUAGES -->
+<div class="page" id="page-tatouages">
+<div class="container">
+  <div class="section-kicker">Corps & encre</div>
+  <h2 class="section-title">Le Langage du Corps</h2>
+  <div class="section-kanji">彫り物 · Horimono — l'art de porter l'appartenance</div>
+  <div class="divider"></div>
+
+  <p class="lore-p">Dans la tradition du Syndicat, le tatouage n'est pas une décoration — c'est un <strong>acte juridique</strong>. Chaque motif est une déclaration d'appartenance, de rang, et d'histoire personnelle. Les tatouages du Syndicat sont réalisés à la main traditionnelle (<em>tebori</em>), jamais à la machine — lenteur et douleur font partie du rituel.</p>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2rem 0 1rem;">Motifs par clan</h3>
+  <div class="tattoo-grid">
+    <div class="tattoo-item" style="border-top:2px solid var(--clan-feu);">
+      <div class="tattoo-symbol" style="color:var(--clan-feu);">炎</div>
+      <div class="tattoo-name">Feu Dormant — les Flammes Montantes</div>
+      <div class="tattoo-meaning">honō · ファイア · tradition yakuza irezumi</div>
+      <div class="tattoo-desc">Flammes montant de la taille jusqu'aux omoplates. Dragon rouge en surimpression pour les Voix de Clan. Chaque flamme représente une épreuve traversée. Chrysanthème rouge en badge de clan complémentaire.</div>
+    </div>
+    <div class="tattoo-item" style="border-top:2px solid var(--clan-grue);">
+      <div class="tattoo-symbol" style="color:var(--clan-grue);">鶴</div>
+      <div class="tattoo-name">Grue Cendrée — la Grue en Vol</div>
+      <div class="tattoo-meaning">tsuru · tradition peinture encre Joseon</div>
+      <div class="tattoo-desc">Grue aux ailes déployées sur l'omoplate gauche. Motifs de brume et nuages en remplissage. Idéogramme 鶴 placé derrière l'oreille droite — signature discrète. Contours fins, encre bleue-grise.</div>
+    </div>
+    <div class="tattoo-item" style="border-top:2px solid var(--clan-serpent);">
+      <div class="tattoo-symbol" style="color:var(--clan-serpent);">蛇</div>
+      <div class="tattoo-name">Serpent de Jade — les Écailles</div>
+      <div class="tattoo-meaning">hebi · tradition gravure chinoise Han</div>
+      <div class="tattoo-desc">Serpent enroulé du bras gauche — épaule à poignet. L'avancement du tatouage suit la progression dans le clan : 3 anneaux pour aspirant, 7 pour kyōdai complet. Lotus vert en badge d'entrée sur le poignet.</div>
+    </div>
+    <div class="tattoo-item" style="border-top:2px solid var(--clan-pierre);">
+      <div class="tattoo-symbol" style="color:var(--clan-pierre);">岩</div>
+      <div class="tattoo-name">Pierre Noire — les Strates</div>
+      <div class="tattoo-meaning">iwa · tradition peinture rupestre &amp; calligraphie zen</div>
+      <div class="tattoo-desc">Lignes géométriques évoquant des strates géologiques — avant-bras gauche pour les membres, dos complet pour la Voix. Motif de montagne sur le dos, quatre idéogrammes cardinaux aux extrémités. Encre noire pure.</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2rem 0 1rem;">Motifs de rang transversaux</h3>
+  <div class="tattoo-grid">
+    <div class="tattoo-item" style="border-top:2px solid var(--gold);">
+      <div class="tattoo-symbol" style="color:var(--gold);">鬼</div>
+      <div class="tattoo-name">L'Oni — le Masque</div>
+      <div class="tattoo-meaning">Unique. Non reproductible. Réalisé uniquement par Nagata.</div>
+      <div class="tattoo-desc">Masque d'Oni couvrant l'intégralité du dos. Les quatre symboles de clan (炎鶴蛇岩) placés aux quatre membres. Teinte des mains en sumi noir. Motifs de tempes. Irreversible.</div>
+    </div>
+    <div class="tattoo-item">
+      <div class="tattoo-symbol">⭕</div>
+      <div class="tattoo-name">Le Cercle du Conseil</div>
+      <div class="tattoo-meaning">Pour les Voix de Clan uniquement</div>
+      <div class="tattoo-desc">Cercle vide dans la nuque — "l'œil du typhon". Signifie l'accès au Conseil des Souffles. Réalisé lors de la cérémonie de nomination de la Voix. Petit, discret, chargé.</div>
+    </div>
+    <div class="tattoo-item" style="border-style:dashed;">
+      <div class="tattoo-symbol" style="color:var(--ink-ghost);">竹</div>
+      <div class="tattoo-name">Départ honorable — le Bambou</div>
+      <div class="tattoo-meaning">Pour les membres ayant quitté via le Retour du Bambou</div>
+      <div class="tattoo-desc">Un trait vertical de bambou ajouté au-dessus du tatouage de clan existant. Signifie l'appartenance passée — respectée mais close. Le membre conserve tous ses tatouages; on ajoute seulement ce trait.</div>
+    </div>
+    <div class="tattoo-item" style="border-color:var(--red-seal);border-style:dashed;">
+      <div class="tattoo-symbol" style="color:var(--red-seal);">×</div>
+      <div class="tattoo-name">Trahison — la Croix</div>
+      <div class="tattoo-meaning">Infligé, jamais choisi</div>
+      <div class="tattoo-desc">Croix noire barrant le tatouage de clan — réalisée sans consentement si le membre est physiquement accessible lors d'un jugement de trahison. Signal de mise à l'écart pour tout le réseau du Syndicat.</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2rem 0 1rem;">Inspirations artistiques</h3>
+  <p class="lore-p">Le style du Syndicat puise dans trois traditions distinctes, mélangées selon le clan et l'artiste :</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.5rem 0;">
+    <div style="border:var(--border-thin);padding:1.25rem;background:var(--paper-warm);">
+      <div style="font-weight:500;margin-bottom:0.5rem;">Irezumi japonais</div>
+      <div style="font-size:0.82rem;color:var(--ink-faded);">Grandes compositions couvrant dos et membres. Motifs animaliers. Tradition yakuza. Clan du Feu principalement.</div>
+    </div>
+    <div style="border:var(--border-thin);padding:1.25rem;background:var(--paper-warm);">
+      <div style="font-weight:500;margin-bottom:0.5rem;">Tatouage coréen Joseon</div>
+      <div style="font-size:0.82rem;color:var(--ink-faded);">Lignes fines, aquarelle, motifs naturalistes. Grues, nuages, bambous. Clan de la Grue.</div>
+    </div>
+    <div style="border:var(--border-thin);padding:1.25rem;background:var(--paper-warm);">
+      <div style="font-weight:500;margin-bottom:0.5rem;">Gravure chinoise Han</div>
+      <div style="font-size:0.82rem;color:var(--ink-faded);">Géométrie, calligraphie, serpents enroulés. Encre noire ou jade. Clans Serpent et Pierre.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PAGE INTEGRATION -->
+<div class="page" id="page-integration">
+<div class="container">
+  <div class="section-kicker">Portes d'entrée & de sortie</div>
+  <h2 class="section-title">Rejoindre et Quitter le Syndicat</h2>
+  <div class="section-kanji">入門と離脱 · Nyūmon to ridatsu</div>
+  <div class="divider"></div>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:0 0 1.5rem;">Arrivée — le chemin de l'aspirant</h3>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-step-line"><div class="flow-dot red"></div><div class="flow-line-seg"></div></div>
+      <div class="flow-content">
+        <div class="flow-label">Contact initial</div>
+        <div class="flow-title">On ne cherche pas le Syndicat — il trouve</div>
+        <div class="flow-desc">Le premier contact vient toujours d'un membre existant. On ne se présente pas à la porte du Syndicat. On rencontre un Associé, on effectue un service, on se comporte bien. Le rapporteur est responsable de la personne qu'il présente — si elle trahit, il répond.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-line-seg"></div></div>
+      <div class="flow-content">
+        <div class="flow-label">Statut Associé — durée libre</div>
+        <div class="flow-title">Prester sans s'engager</div>
+        <div class="flow-desc">L'Associé effectue des services pour le Syndicat sans serment. Il n'a pas accès aux réunions, ne connaît pas la structure, ne porte pas de fil de couleur. C'est une période d'observation mutuelle. Le Syndicat regarde comment la personne gère l'argent, la pression, les conflits.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-line-seg"></div></div>
+      <div class="flow-content">
+        <div class="flow-label">Invitation et évaluation</div>
+        <div class="flow-title">Le choix du clan</div>
+        <div class="flow-desc">Si une Voix de Clan s'intéresse à l'Associé, elle propose une orientation. L'Associé choisit son clan — ou est orienté selon ses compétences. Un guerrier va au Feu. Un négociateur à la Grue. Un financier au Serpent. Un gardien de secret à la Pierre. Ce choix est définitif sauf accord unanime du Conseil.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-line-seg"></div></div>
+      <div class="flow-content">
+        <div class="flow-label">Statut Wakashū — minimum 3 lunes</div>
+        <div class="flow-title">La période d'épreuve</div>
+        <div class="flow-desc">L'aspirant porte un fil de couleur de clan — mais pas encore au poignet gauche. Il observe les réunions de clan sans voter. Il reçoit des missions qui testent sa fiabilité, sa discrétion, sa capacité à tenir l'interdit II (ne pas parler aux autorités). Minimum 3 cycles de vote (6 semaines).</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-line"><div class="flow-dot gold"></div><div class="flow-line-seg"></div></div>
+      <div class="flow-content">
+        <div class="flow-label">Le Serment du Souffle</div>
+        <div class="flow-title">Devenir Kyōdai — Frère ou Sœur juré(e)</div>
+        <div class="flow-desc">Nuit complète. Jeûne de 24 heures. Serment oral enregistré par Fumiko Ōe — ce serment est la garantie du Syndicat sur le membre. Première session de tatouage de clan. Le fil passe au poignet gauche. Bienvenue dans le Syndicat.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2.5rem 0 1.5rem;">Départ — trois chemins</h3>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:2rem;">
+    <div style="border:var(--border-thin);padding:1.5rem;background:var(--paper-warm);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--jade);margin-bottom:0.5rem;">Sortie honorable</div>
+      <div style="font-family:'Noto Serif JP',serif;font-weight:700;margin-bottom:0.75rem;">Le Retour du Bambou</div>
+      <div style="font-size:0.82rem;color:var(--ink-faded);line-height:1.7;">Le membre demande à quitter. L'Oni convoque. Si la demande est jugée légitime (maladie grave, retraite, protection d'un proche), l'Oni remet un bâton de bambou. Le membre conserve ses tatouages — on ajoute le trait de bambou. Il ne parle plus au nom du Syndicat mais reste protégé par ses anciens codes.</div>
+    </div>
+    <div style="border:1px solid var(--gold);padding:1.5rem;background:rgba(184,134,11,0.03);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">Sortie sous pression</div>
+      <div style="font-family:'Noto Serif JP',serif;font-weight:700;margin-bottom:0.75rem;">La Dissolution</div>
+      <div style="font-size:0.82rem;color:var(--ink-faded);line-height:1.7;">Si un membre disparaît sans processus (fuite, arrestation longue, mort non officielle), le clan déclare la Dissolution après deux lunes sans nouvelle. Ses engagements sont absorbés par le clan. Ses archives sont scellées. Son existence dans le Syndicat est effacée — sans rancœur officielle.</div>
+    </div>
+    <div style="border:1px solid var(--red-seal);padding:1.5rem;background:rgba(139,26,26,0.03);">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--red-seal);margin-bottom:0.5rem;">Sortie forcée</div>
+      <div style="font-family:'Noto Serif JP',serif;font-weight:700;margin-bottom:0.75rem;">Le Jugement des Pierres</div>
+      <div style="font-size:0.82rem;color:var(--ink-faded);line-height:1.7;">Trahison avérée. Fumiko Ōe présente les preuves. Toutes les Voix votent. Si condamnation : tatouage barré, fil confisqué, exil du réseau. Le membre n'est plus protégé par aucune règle du Syndicat — mais le Syndicat non plus ne va pas "chercher" quelqu'un qui est parti sans faire de bruit.</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Noto Serif JP',serif;font-weight:700;font-size:1.05rem;margin:2rem 0 1rem;">Profils d'entrée pour nouveaux joueurs</h3>
+  <table class="rites-table">
+    <thead><tr><th>Profil</th><th>Accroche RP</th><th>Premier contact</th><th>Clan naturel</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Transporteur</td>
+        <td>Tu livres un colis pour un "ami d'ami". La livraison se passe bien. Deux jours après, on frappe à ta porte.</td>
+        <td>Danny Park (Serpent) ou Tarou Seki (Feu)</td>
+        <td>Serpent ou Feu</td>
+      </tr>
+      <tr>
+        <td>Comptable / avocat</td>
+        <td>Un client te demande de "régulariser" des revenus dont il ne précise pas la source. Il paie trop bien pour qu'on pose des questions.</td>
+        <td>Clara Tsang (Serpent) ou Soo-Yeon Lim (Grue)</td>
+        <td>Serpent ou Grue</td>
+      </tr>
+      <tr>
+        <td>Ancien militaire / sécurité</td>
+        <td>Tu cherches du travail d'escorte privée. Un nom revient dans les milieux discrets : Kenji Murakami.</td>
+        <td>Hana Yoshida (Feu)</td>
+        <td>Feu</td>
+      </tr>
+      <tr>
+        <td>Traducteur / diplomate</td>
+        <td>Une rencontre entre deux parties qui ne parlent pas la même langue. Tu traduis. Tu comprends que ce que tu entends est précieux.</td>
+        <td>Ryo Nakamura (Grue)</td>
+        <td>Grue</td>
+      </tr>
+      <tr>
+        <td>Historien / archiviste</td>
+        <td>Tu travailles sur l'histoire de la diaspora asiatique à San Andreas. Une vieille femme au regard étrange te propose un café et une "conversation".</td>
+        <td>Fumiko Ōe (Pierre)</td>
+        <td>Pierre Noire</td>
+      </tr>
+      <tr>
+        <td>Criminel opportuniste</td>
+        <td>Tu as fait un coup qui a impliqué malgré toi une livraison du Syndicat. Au lieu d'une sanction, on te propose un rendez-vous.</td>
+        <td>Danny Park ou Tarou Seki</td>
+        <td>Feu ou Serpent</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="lore-quote" style="margin-top:2rem;">
+    « Tout le monde entre dans le Syndicat parce qu'il a besoin d'une porte. Ce qu'il ne sait pas encore, c'est qu'une fois la porte franchie, elle ne s'ouvre que de l'intérieur. »
+    <span style="font-size:0.85rem;display:block;margin-top:0.5rem;color:var(--ink-ghost);">— Fumiko Ōe, Voix de la Pierre Noire</span>
+  </div>
+</div>
+</div>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,0.3);text-align:center;padding:1.5rem;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;">
+  Le Syndicat des Quatre Souffles · 四風組合 · Document interne Madera V4 — La Terre Volée · Usage staff & joueurs autorisés
+</footer>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const btns = document.querySelectorAll('.nav-btn');
+  const labels = ['lore','hierarchie','clans','oni','rites','tatouages','integration'];
+  const idx = labels.indexOf(id);
+  if(idx >= 0) btns[idx].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function showClan(name) {
+  document.getElementById('clan-overview').style.display = 'none';
+  document.querySelectorAll('.clan-detail').forEach(d => d.classList.remove('visible'));
+  document.getElementById('clan-' + name).classList.add('visible');
+  window.scrollTo(0, document.getElementById('page-clans').offsetTop || 0);
+}
+
+function hideClan() {
+  document.querySelectorAll('.clan-detail').forEach(d => d.classList.remove('visible'));
+  document.getElementById('clan-overview').style.display = 'block';
+}
+</script>
+</body>
+</html>
